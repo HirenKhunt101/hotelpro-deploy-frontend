@@ -18,7 +18,7 @@ export class AuthService {
     private router: Router,
     private userInfoService: UserInfoService,
     private alertService: AlertService
-  ) {}
+  ) { }
 
   get tokenRefreshInProgress(): Observable<boolean> {
     return this.tokenRefreshInProgressSubject.asObservable();

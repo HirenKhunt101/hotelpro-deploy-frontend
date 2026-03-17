@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 4201 --proxy-config proxy.conf.json",
+    "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -19,7 +19,7 @@
     "@angular/platform-browser": "^17.0.0",
     "@angular/platform-browser-dynamic": "^17.0.0",
     "@angular/router": "^17.0.0",
-    "@ng-bootstrap/ng-bootstrap": "^17.0.0",
+    "@ng-bootstrap/ng-bootstrap": "^16.0.0",
     "@popperjs/core": "^2.11.8",
     "ag-grid-angular": "^31.3.2",
     "ag-grid-community": "^31.3.2",
@@ -28,10 +28,8 @@
     "crypto-js": "^4.2.0",
     "ng-image-slider-v17": "^8.0.1",
     "ng-multiselect-dropdown": "^1.0.0",
-    "ng2-charts": "^8.0.0",
     "ngx-file-drop": "^16.0.0",
     "ngx-skeleton-loader": "^9.0.0",
-    "ngx-socket-io": "^4.6.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
