@@ -32,7 +32,7 @@ export const responseHandlerInterceptor: HttpInterceptorFn = (req, next) => {
               }),
               catchError((refreshErr) => {
                 console.error('Error refreshing token:', refreshErr);
-                authService.clearLocalStorageAndRedirect();
+                // authService.clearLocalStorageAndRedirect();
                 return throwError(() => refreshErr);
               })
             );
