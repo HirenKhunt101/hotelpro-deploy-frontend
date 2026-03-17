@@ -68,7 +68,7 @@ export class AuthService {
         credentials
       );
       let userData = response.data;
-      this.userInfoService.setUserInfo(userData);
+      await this.userInfoService.setUserInfo(userData);
       this.router.navigate([`/${userData?.user?.userType}-dashboard`]);
     } catch (error: any) {
       console.error('Error during login:', error);
