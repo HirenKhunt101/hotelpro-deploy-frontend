@@ -13,11 +13,11 @@ import { ResponseMessages } from '../constants/response-message';
   providedIn: 'root',
 })
 export class MasterService implements IApiBaseActions {
-  constructor(public httpClient: HttpClient) {}
+  constructor(public httpClient: HttpClient) { }
 
   Get(url: string, params?: ParamsType) {
     return this.httpClient
-      .get<IApiBaseResponse>(url, { params: this.createParams(params) })
+      .get<IApiBaseResponse>(url, { params: this.createParams(params), withCredentials: true })
       .pipe(
         tap((response) => this.HandleResponse(response)),
         catchError(this.handleError)
@@ -26,7 +26,7 @@ export class MasterService implements IApiBaseActions {
 
   GetAll(url: string, params?: ParamsType) {
     return this.httpClient
-      .get<IApiBaseResponse>(url, { params: this.createParams(params) })
+      .get<IApiBaseResponse>(url, { params: this.createParams(params), withCredentials: true })
       .pipe(
         tap((response) => this.HandleResponse(response)),
         catchError(this.handleError)
@@ -35,7 +35,7 @@ export class MasterService implements IApiBaseActions {
 
   Post(url: string, data: any, params?: ParamsType) {
     return this.httpClient
-      .post<IApiBaseResponse>(url, data, { params: this.createParams(params) })
+      .post<IApiBaseResponse>(url, data, { params: this.createParams(params), withCredentials: true })
       .pipe(
         tap((response) => this.HandleResponse(response)),
         catchError(this.handleError)
@@ -44,7 +44,7 @@ export class MasterService implements IApiBaseActions {
 
   Delete(url: string, data: any, params?: ParamsType) {
     return this.httpClient
-      .delete<IApiBaseResponse>(url, { params: this.createParams(params) })
+      .delete<IApiBaseResponse>(url, { params: this.createParams(params), withCredentials: true })
       .pipe(
         tap((response) => this.HandleResponse(response)),
         catchError(this.handleError)
@@ -53,7 +53,7 @@ export class MasterService implements IApiBaseActions {
 
   Put(url: string, data: any, params?: ParamsType) {
     return this.httpClient
-      .put<IApiBaseResponse>(url, data, { params: this.createParams(params) })
+      .put<IApiBaseResponse>(url, data, { params: this.createParams(params), withCredentials: true })
       .pipe(
         tap((response) => this.HandleResponse(response)),
         catchError(this.handleError)
