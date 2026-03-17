@@ -1,4 +1,8 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist/hotelpro-frontend"
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
