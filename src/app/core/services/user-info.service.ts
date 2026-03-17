@@ -15,15 +15,22 @@ export class UserInfoService {
     this.navBarUpdate.next(data);
   }
 
-  setUserInfo(data: any, isUpdate?: boolean): void {
-    try {
-      localStorage.setItem(this.storageKey, btoa(JSON.stringify(data)));
-      if (isUpdate) this.sendNavUpdate(true);
-    } catch (e) {
-      console.error('Error storing user info:', e);
-    }
-  }
+  setUserInfo(data: any, isUpdate?: boolean): Promise<void> {
+    return new Promise((resolve, reject) => {
+      try {
+        localStorage.setItem(this.storageKey, btoa(JSON.stringify(data)));
 
+        if (isUpdate) {
+          this.sendNavUpdate(true);
+        }
+
+        resolve();
+      } catch (e) {
+        console.error('Error storing user info:', e);
+        reject(e);
+      }
+    });
+  }
   getUserInfo(): any {
     const data = localStorage.getItem(this.storageKey);
     if (!data) return null;

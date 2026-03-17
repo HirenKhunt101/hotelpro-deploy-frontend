@@ -61,19 +61,21 @@ export class AuthService {
     );
   }
 
-  async login(credentials: any): Promise<void> {
-    try {
-      const response = await this.crudService.post(
-        APIConstant.LOGIN,
-        credentials
-      );
-      let userData = response.data;
-      await this.userInfoService.setUserInfo(userData);
-      this.router.navigate([`/${userData?.user?.userType}-dashboard`]);
-    } catch (error: any) {
-      console.error('Error during login:', error);
-      this.alertService.errorAlert(error.error.message);
-    }
+  login(credentials: any): Promise<void> {
+    return this.crudService.post(APIConstant.LOGIN, credentials)
+      .then((response: any) => {
+        const userData = response.data;
+
+        return this.userInfoService.setUserInfo(userData)
+          .then(() => {
+            this.router.navigate([`/${userData?.user?.userType}-dashboard`]);
+          });
+      })
+      .catch((error: any) => {
+        console.error('Error during login:', error);
+        this.alertService.errorAlert(error.error.message);
+        return Promise.reject(error);
+      });
   }
   async switchProperty(data: any): Promise<void> {
     try {

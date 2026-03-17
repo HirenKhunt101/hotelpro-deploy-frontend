@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private alertService: AlertService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.LoginForm = new FormGroup({
@@ -37,17 +37,18 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  async logIn() {
+  logIn() {
     if (this.LoginForm.valid) {
       const obj = JSON.parse(JSON.stringify(this.LoginForm.value));
       obj.email = obj.email.toLowerCase();
-      try {
-        await this.authService.login(obj);
 
-        console.log('Login successful');
-      } catch (error: any) {
-        console.error('Login failed', error);
-      }
+      this.authService.login(obj)
+        .then(() => {
+          console.log('Login successful');
+        })
+        .catch((error: any) => {
+          console.error('Login failed', error);
+        });
     }
   }
 }
