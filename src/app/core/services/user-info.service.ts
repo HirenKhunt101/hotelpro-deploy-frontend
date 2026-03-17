@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import * as CryptoJS from 'crypto-js';
 import { environment } from '../../../environments/environment.development';
 import { BehaviorSubject } from 'rxjs';
+
 @Injectable({
   providedIn: 'root',
 })
 export class UserInfoService {
   private readonly storageKey = environment.storageKey;
-  private readonly encryptionKey = environment.crypto_encryption_Key; // Use a secure key management approach
 
   private navBarUpdate = new BehaviorSubject<any>(null);
   navBarUpdate$ = this.navBarUpdate.asObservable();
@@ -18,29 +17,21 @@ export class UserInfoService {
 
   setUserInfo(data: any, isUpdate?: boolean): void {
     try {
-      const encryptedData = CryptoJS.AES.encrypt(
-        JSON.stringify(data),
-        this.encryptionKey
-      ).toString();
-      localStorage.setItem(this.storageKey, encryptedData);
+      localStorage.setItem(this.storageKey, JSON.stringify(data));
       if (isUpdate) this.sendNavUpdate(true);
     } catch (e) {
-      console.error('Error encrypting user info:', e);
+      console.error('Error storing user info:', e);
     }
   }
 
   getUserInfo(): any {
-    const encryptedData = localStorage.getItem(this.storageKey);
-    if (!encryptedData) {
-      return null;
-    }
+    const data = localStorage.getItem(this.storageKey);
+    if (!data) return null;
 
     try {
-      const bytes = CryptoJS.AES.decrypt(encryptedData, this.encryptionKey);
-      const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
-      return JSON.parse(decryptedData);
+      return JSON.parse(data);
     } catch (e) {
-      console.error('Error decrypting user info:', e);
+      console.error('Error parsing user info:', e);
       return null;
     }
   }
