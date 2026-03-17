@@ -17,7 +17,7 @@ export class UserInfoService {
 
   setUserInfo(data: any, isUpdate?: boolean): void {
     try {
-      localStorage.setItem(this.storageKey, JSON.stringify(data));
+      localStorage.setItem(this.storageKey, btoa(JSON.stringify(data)));
       if (isUpdate) this.sendNavUpdate(true);
     } catch (e) {
       console.error('Error storing user info:', e);
@@ -29,7 +29,7 @@ export class UserInfoService {
     if (!data) return null;
 
     try {
-      return JSON.parse(data);
+      return JSON.parse(atob(data));
     } catch (e) {
       console.error('Error parsing user info:', e);
       return null;
